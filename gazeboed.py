@@ -1,11 +1,10 @@
 #mbdcb,c#! /usr/bin/env python3
 
-from Tkinter import *
+from tkinter import *
 from PIL import Image, ImageTk
 from random import randint
 
-root_dir = "/home/tamara/desktop/gazeboed"
-print(randint(1,10))
+root_dir = "/home/harry/desktop/gazeboed"
 
 class APP:
 
@@ -176,20 +175,91 @@ class APP:
         self.gameDescLbl.pack()
         self.gameDescLbl.place(rely=0.45,relx=0.5,anchor=N)
         self.rerun = False
+        self.queue = []
+        self.cntTrex = -1
+        self.cntPoint = -1
+        self.cntD = -1
+        self.cntChild = -1
+        self.cntWeak = -1
+        self.status = False
         self.gameChange()
+        root.bind('<space>', self.gameChange)
 
+    def gameChange(self, event=None):
+        executor = "none"
 
-    def gameChange(self):
-        #queue executions
-
+        if not self.rerun:
         #counter decrementations
-        #if not self.rerun:
-            #decrement
+            if self.cntTrex > 0:
+                self.cntTrex -=1
+            elif self.cntTrex == 0:
+                self.queue.append("Trex")
+                self.cntTrex = -1
 
-        #main sequence
+            if self.cntPoint > 0:
+                self.cntPoint -=1
+            elif self.cntPoint == 0:
+                self.queue.append("Point")
+                self.cntPoint = -1
+
+            if self.cntD > 0:
+                self.cntD -=1
+            elif self.cntD == 0:
+                self.queue.append("D")
+                self.cntD = -1
+
+            if self.cntChild > 0:
+                self.cntChild -= 1
+            elif self.cntChild == 0:
+                self.queue.append("Child")
+                self.cntChild = -1
+
+            if self.cntWeak > 0:
+                self.cntWeak -=1
+            elif self.cntChild == 0:
+                self.queue.append("Weak")
+                self.cntWeak = -1
+
+        #queue extraction
+            if len(self.queue) > 0:
+                executor = self.queue[0]
+                for i in range(1,len(self.queue)-1):
+                    self.queue[i-1] = self.queue[i]
+                self.queue.remove(self.queue[len(self.queue)-1])
+
+    #main sequence
         self.rerun = False
-        rno = 5
-        if rno == 1:
+        rno = randint(1,31)
+
+    #rule enders
+        if executor == "Trex":
+            self.gameName = ("T-Rex")
+            self.gameDesc = ("You no longer have to drink with T-rex arms.")
+            backColour = "Cyan"
+            foreColour = "White"
+        elif executor == "Point":
+            self.gameName = ("Pointless")
+            self.gameDesc = ("You can now point again.")
+            backColour = "Cyan"
+            foreColour = "White"
+        elif executor == "D":
+            self.gameName = ("D's Back Now")
+            self.gameDesc = ("You may say drink as you please again.")
+            backColour = "Cyan"
+            foreColour = "White"
+        elif executor == "Child":
+            self.gameName = ("The Little Shits Have\nFucked Off Now")
+            self.gameDesc = ("You may swear again.")
+            backColour = "Cyan"
+            foreColour = "White"
+        elif executor == "Weak":
+            self.gameName = ("Weak Hands")
+            self.gameDesc = ("You can drink with whatever hand you want again.")
+            backColour = "Cyan"
+            foreColour = "White"
+
+    #games
+        elif rno == 1:
             self.gameName =("Fuzzy Duck - %s starts" %(self.players[randint(0,self.p)]))
             self.gameDesc =("Everybody repeats the phrase 'Fuzzy Duck' in a clockwise\ndirection, until somebody gets it wrong. If somebody says\n'Does He?' you must change direction and say 'Ducky Fuzz'\ninstead.")
             backColour = "Yellow"
@@ -231,8 +301,167 @@ class APP:
                 self.rerun=True
                 self.gameChange()
         elif rno == 6:
-            self.gameName = 
-        
+            self.gameName = ("I'm Going to the Bar\n%s starts." %(self.players[randint(0,self.p)]))
+            self.gameDesc = ("The first player says 'I'm Going to the Bar,\n and I'm going to bring...' and then names a drink.\nThe next player then repeats and then adds another drink,\nand so on.")
+            backColour = "Black"
+            foreColour = "Yellow"
+        elif rno == 7:
+            self.gameName = ("Bail Out!")
+            self.gameDesc = ("Everybody grab a second cup and a spoon. You have one\nminute to transfer as much drink into the empty cup as\npossible, without lifting either cup. anything left in\nthe first cup you'll have to down.")
+            backColour = "Black"
+            foreColour = "Orange"
+        elif rno == 8:
+            self.gameName = ("Target: 21\n"
+                             "%s starts." %(self.players[randint(0,self.p)]))
+            self.gameDesc = ("Count to 21, each player can only say up to three numbers\nat a time, then the next player continues. If two numbers are\nsaid then the next player is skipped. if three numbers\nare said then play changes direction. The player who says\n21 drinks.")
+            backColour = "Orange"
+            foreColour = "Green"
+        elif rno == 9:
+            self.gameName = ("Sevens\n%s starts" %(self.players[randint(0,self.p)]))
+            self.gameDesc = ("Everybody says one number at a time, counting sequentially.\nIf a number with a seven in it or a multiple of seven falls\non you then don't say anything - if you do, drink.")
+            backColour = "Grey"
+            foreColour = "Cyan"
+        elif rno == 10:
+            self.gameName = ("Drunk Dial:\n%s give your phone\nto %s" %(self.players[randint(0,self.p)], self.players[randint(0,self.p)]))
+            self.gameDesc = ("You can send one text or online message to anybody in their\ncontacts except for family members and one veto. You may keep\nthe phone until they reply or for half an hour.\n(Get out clause: 2 shots.)")
+            backColour = "Red"
+            foreColour = "White"
+        elif rno == 11:
+            self.gameName = ("GECKO!")
+            self.gameDesc = ("Everybody get at least 3 limbs on a wall ASAP.\nLast person to do so drinks.")
+            backColour = "Green"
+            foreColour = "Orange"
+        elif rno == 12:
+            self.gameName = ("AIR RAID!")
+            self.gameDesc = ("Everybody get under something ASAP.\nLast person to do so drinks.")
+            backColour = "Blue"
+            foreColour = "Red"
+        elif rno == 13:
+            self.gameName = ("LAVA!")
+            self.gameDesc = ("Everybody get off the floor ASAP.\nLast person to do so drinks.")
+            backColour = "DarkOrange"
+            foreColour = "Yellow"
+        elif rno == 14:
+            if self.cntTrex < 0:
+                self.gameName = ("T-Rex")
+                self.gameDesc = ("For the next few turns, everyone has to drink with\nT-rex arms.")
+                backColour = "LimeGreen"
+                foreColour = "White"
+                self.cntTrex = randint(6,10)
+            else:
+                self.rerun = True
+                self.gameChange()
+        elif rno == 15:
+            if self.cntPoint < 0:
+                self.gameName = ("Pointless")
+                self.gameDesc = ("For the next few turns, nobody is allowed to point\nwith their hands in any way.")
+                backColour = "LimeGreen"
+                foreColour = "White"
+                self.cntPoint = randint(6,10)
+            else:
+                self.rerun = True
+                self.gameChange()
+        elif rno == 16:
+            if self.cntD < 0:
+                self.gameName = ("No D's Please")
+                self.gameDesc = ("For the next few turns, nobody is allowed to say\n the D word (drink).")
+                backColour = "LimeGreen"
+                foreColour = "White"
+                self.cntD = randint(6,10)
+            else:
+                self.rerun = True
+                self.gameChange()
+        elif rno == 17:
+            if self.cntChild < 0:
+                self.gameName = ("Small Children Present")
+                self.gameDesc = ("No swearing for the next few turns.")
+                backColour = "LimeGreen"
+                foreColour = "White"
+                self.cntChild = randint(6,10)
+            else:
+                self.rerun = True
+                self.gameChange()
+        elif rno == 18:
+            if self.cntWeak < 0:
+                self.gameName = ("Weak Hands")
+                self.gameDesc = ("For the next few turns, drink only with your weak hands.")
+                backColour = "LimeGreen"
+                foreColour = "White"
+                self.cntWeak = randint(6,10)
+            else:
+                self.rerun = True
+                self.gameChange()
+        elif rno == 19:
+            if not self.status:
+                self.gameName = ("Status")
+                self.gameDesc = ("From this point on, if somebody says status immediately\nafter you say something, you must post it on facebook.")
+                backColour = "LimeGreen"
+                foreColour = "White"
+                self.status = True
+            else:
+                self.rerun = True
+                self.gameChange()
+        elif rno == 20:
+            self.gameName = ("SECURITY CHECK!")
+            self.gameDesc = ("If your drink isn't exactly a finger's length\nfrom the edge of the table, drink.")
+            backColour = "DarkBlue"
+            foreColour = "Red"
+    #categories
+        elif rno == 21:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a Selly Oak bar/restaurant, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 22:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a foreign currency, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 23:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a Lord of the Rings character, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 24:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a Star Wars character, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 25:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a sex position, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 26:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a porn site, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 27:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a reality TV show, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 28:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a road in Selly Oak, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 29:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a building on campus, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 30:
+            self.gameName = ("Categories")
+            self.gameDesc = ("Name a Disney film, %s starts." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
+        elif rno == 31:
+            self.gameName = ("Categories")
+            self.gameDesc = ("%s choose a category and start." %(self.players[randint(0,self.p)]))
+            backColour = "Purple"
+            foreColour = "White"
 
         self.gameNameLbl.config(text=self.gameName, fg=foreColour, bg=backColour)
         self.gameDescLbl.config(text=self.gameDesc, fg=foreColour, bg=backColour)
@@ -244,8 +473,8 @@ class APP:
 root = Tk()
 [w, h] = root.winfo_screenwidth(), root.winfo_screenheight() - 20
 print(w,h)
-#root.wm_attributes('-type', 'splash')
-root.attributes('-fullscreen', True)
+root.wm_attributes('-type', 'splash')
+#root.attributes('-fullscreen', True)
 #root.overrideredirect(True)
 #root.geometry("{0}x{1}+0+0".format(w, h))
 
