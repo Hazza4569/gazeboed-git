@@ -4,7 +4,7 @@ from Tkinter import *
 from PIL import Image, ImageTk
 from random import randint
 
-root_dir = "/home/harry/desktop/gazeboed"
+root_dir = "/home/tamara/desktop/gazeboed"
 print(randint(1,10))
 
 class APP:
