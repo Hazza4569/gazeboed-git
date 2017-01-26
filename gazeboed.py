@@ -1,6 +1,6 @@
 #mbdcb,c#! /usr/bin/env python3
 
-from tkinter import *
+from Tkinter import *
 from PIL import Image, ImageTk
 from random import randint
 
@@ -204,8 +204,8 @@ class APP:
 root = Tk()
 [w, h] = root.winfo_screenwidth(), root.winfo_screenheight() - 20
 print(w,h)
-root.wm_attributes('-type', 'splash')
-#root.attributes('-fullscreen', True)
+#root.wm_attributes('-type', 'splash')
+root.attributes('-fullscreen', True)
 #root.overrideredirect(True)
 #root.geometry("{0}x{1}+0+0".format(w, h))
 
