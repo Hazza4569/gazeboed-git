@@ -21,7 +21,7 @@ class APP:
         self.dropdown.add_separator()
         self.dropdown.add_command(label = "Quit", command = root.destroy)
         self.options.pack()
-        self.options.place(x=(w - 62), y=0)
+        self.options.place(relx=0.97, y=0)
 
         self.titlelogo = Canvas(frame, bg = backColour, bd = 0, relief = "ridge", highlightthickness = 0, width = 498, height = 381)
         self.titlelogo.pack(expand = YES, fill = BOTH)
@@ -55,7 +55,7 @@ class APP:
         self.input.append(StringVar())
         self.playersfield.append(Entry(frame, relief = 'flat', textvariable=self.input[0]))
         self.playersfield[self.p].pack(pady = 3)
-        self.playersfield[self.p].place(relx=0.05, rely=0.1)
+        self.playersfield[self.p].place(x=0.05*w, rely=0.1)
         root.focus_set()
         self.playersfield[self.p].focus_set()
         root.focus_force()
@@ -171,19 +171,26 @@ class APP:
         self.gameDesc=""
         self.gameNameLbl = Label(frame, fg=foreColour, bg=backColour, font='courier 70 bold')
         self.gameNameLbl.pack()
-        self.gameNameLbl.place(rely=0.49,relx=0.5,anchor=S)
-        self.gameDescLbl = Label(frame, fg=foreColour, bg=backColour, font ='courier 30')
+        self.gameNameLbl.place(rely=0.43,relx=0.5,anchor=S)
+        self.gameDescLbl = Label(frame, fg=foreColour, bg=backColour, font ='courier 30 bold')
         self.gameDescLbl.pack()
-        self.gameDescLbl.place(rely=0.51,relx=0.5,anchor=N)
+        self.gameDescLbl.place(rely=0.45,relx=0.5,anchor=N)
+        self.rerun = False
         self.gameChange()
 
 
     def gameChange(self):
-        rno = 2
-        plyno = randint(0,self.p)
-        print(self.iscards.get())
+        #queue executions
+
+        #counter decrementations
+        #if not self.rerun:
+            #decrement
+
+        #main sequence
+        self.rerun = False
+        rno = 5
         if rno == 1:
-            self.gameName =("Fuzzy Duck - %s starts" % (self.players[plyno]))
+            self.gameName =("Fuzzy Duck - %s starts" %(self.players[randint(0,self.p)]))
             self.gameDesc =("Everybody repeats the phrase 'Fuzzy Duck' in a clockwise\ndirection, until somebody gets it wrong. If somebody says\n'Does He?' you must change direction and say 'Ducky Fuzz'\ninstead.")
             backColour = "Yellow"
             foreColour = "Blue"
@@ -193,6 +200,39 @@ class APP:
                 self.gameDesc =("Deal card face down to everyone. Ace is winker,\nKing is fuzz. Winker subtly winks at someone, who\nthen says after a short delay 'The winker hath winked'.\nfuzz then announces themselves and guesses until\ncorrect, drinks for each wrong guess. Winker drinks for\neach player not guessed.")
                 backColour = "DarkBlue"
                 foreColour = "Red"
+            else:
+                self.rerun=True
+                self.gameChange()
+        elif rno == 3:
+            if (self.ispostit.get() == 1):
+                self.gameName = ("Who Is %s? %s decides" %(self.players[randint(0,self.p)], self.players[randint(0,self.p)]))
+                self.gameDesc = ("One player writes a name of a famous person on a\npost-it, and sticks it on the other's head. The\nperson with the post it then has to ask yes or no\nquestions, drink if the answer's no.")
+                backColour = "Red"
+                foreColour = "Yellow"
+            else:
+                self.rerun=True
+                self.gameChange()
+        elif rno == 4:
+            if (self.ispostit.get() == 1):
+                self.gameName = ("%s\nWrite a Cheeky Post-It" %(self.players[randint(0,self.p)]))
+                self.gameDesc = ("Write a short message on a post-it then pass\nit round so only one player can see it at a time\nanybody who laughs must drink, if nobody laughs\n you drink.")
+                backColour = "Orange"
+                foreColour = "Purple"
+            else:
+                self.rerun=True
+                self.gameChange()
+        elif rno == 5:
+            if (self.ispaper.get() == 1):
+                self.gameName = ("Drinktionary")
+                self.gameDesc = ("%s whisper a word to %s, who then has to draw it.\nIf nobody guesses within a reasonable time then the\ndrawer takes a shot. If it's guessed too quickly then\nthe whisperer takes a shot." %(self.players[randint(0,self.p)], self.players[randint(0,self.p)]))
+                backColour = "White"
+                foreColour = "Black"
+            else:
+                self.rerun=True
+                self.gameChange()
+        elif rno == 6:
+            self.gameName = 
+        
 
         self.gameNameLbl.config(text=self.gameName, fg=foreColour, bg=backColour)
         self.gameDescLbl.config(text=self.gameDesc, fg=foreColour, bg=backColour)
