@@ -884,10 +884,10 @@ root.wm_attributes('-type', 'splash')
 #root.overrideredirect(True)
 #root.geometry("{0}x{1}+0+0".format(w, h))
 
-cog = PhotoImage(file="settings.png")
-logo = PhotoImage(file="gazeboed4.png")
-addim = PhotoImage(file="plus.png")
-subim = PhotoImage(file="minus.png")
+cog = PhotoImage(file="settings.gif")
+logo = PhotoImage(file="gazeboed4.gif")
+addim = PhotoImage(file="plus.gif")
+subim = PhotoImage(file="minus.gif")
 
 frame = Frame(root, width=w, height=h, bg="#043605", relief="flat")
 frame.pack_propagate(0)  # don't shrink
