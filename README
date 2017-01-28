@@ -1,3 +1,12 @@
 Gazeboed!
 =========
 A personal project currently in development. Using python with tkinter I have been creating a multiplayer drinking game designed to run on any operating system (currently optimised for linux). It's a party game to be displayed on a TV or large screen and will give drinking instructions and games to players. It takes names as input, supporting a multitude of players, the only limitation being how many entry boxes can be fit on the screen.
+
+V2.0 Update
+===========
+- Added mechanic which delays any one game from making an appearance shortly one after another.
+- Added labels at bottom of screen for all active rules.
+- Balanced appearance rates.
+- Fixed bug where one person could be both players in a two player game.
+- Added more games.
+- Minor text fixes.
