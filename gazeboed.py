@@ -884,7 +884,7 @@ root.wm_attributes('-type', 'splash')
 #root.overrideredirect(True)
 #root.geometry("{0}x{1}+0+0".format(w, h))
 
-cog = PhotoImage(file="settings.png")
+cog = PhotoImage(file="settings.jpg")
 logo = PhotoImage(file="gazeboed4.png")
 addim = PhotoImage(file="plus.png")
 subim = PhotoImage(file="minus.png")
