@@ -284,7 +284,7 @@ class APP:
 
             if self.cntWeak > 0:
                 self.cntWeak -=1
-            elif self.cntChild == 0:
+            elif self.cntWeak == 0:
                 self.queue.append("Weak")
                 self.cntWeak = -1
 
@@ -360,7 +360,7 @@ class APP:
     #games
         elif rno == 1:
             if self.arrCount[1] <= 0:
-                self.gameName =("Fuzzy Duck - %s starts" %(self.players[randint(0,self.p)]))
+                self.gameName =("Fuzzy Duck\n%s starts" %(self.players[randint(0,self.p)]))
                 self.gameDesc =("Everybody repeats the phrase 'Fuzzy Duck' in a clockwise\ndirection, until somebody gets it wrong. If somebody says\n'Does He?' you must change direction and say 'Ducky Fuzz'\ninstead.")
                 self.backColour = "Yellow"
                 self.foreColour = "Blue"
@@ -440,7 +440,7 @@ class APP:
             if self.arrCount[8] <= 0:
                 self.gameName = ("Target: 21\n"
                                 "%s starts." %(self.players[randint(0,self.p)]))
-                self.gameDesc = ("Count to 21, each player can only say up to three numbers\nat a time, then the next player continues. If two numbers are\nsaid then the next player is skipped. if three numbers\nare said then play changes direction. The player who says\n21 drinks.")
+                self.gameDesc = ("Count to 21, each player can only say up to three numbers\nat a time, then the next player continues. If three numbers\nare said then the next player is skipped. if two numbers\nare said then play changes direction. The player who says\n21 drinks.")
                 self.backColour = "Orange"
                 self.foreColour = "Green"
                 self.arrCount[8] = self.moderate
@@ -559,7 +559,7 @@ class APP:
                 self.gameChange()
         elif rno == 20:
             self.gameName = ("SECURITY CHECK!")
-            self.gameDesc = ("If your drink isn't exactly a finger's length\nfrom the edge of the table, drink.")
+            self.gameDesc = ("If your drink isn't exactly an index finger's\nlength from the edge of the table, drink.")
             self.backColour = "DarkBlue"
             self.foreColour = "Red"
 
@@ -875,12 +875,13 @@ class APP:
 #Options to change number of players mid-game
 #Options to increase or decrease intensity
 
-
 root = Tk()
 [w, h] = root.winfo_screenwidth(), root.winfo_screenheight() - 20
 print(w,h)
 root.wm_attributes('-type', 'splash')
+#root.wm_attributes('-fullscreen', 1)
 #root.attributes('-fullscreen', True)
+#root.state('zoomed')
 #root.overrideredirect(True)
 #root.geometry("{0}x{1}+0+0".format(w, h))
 
